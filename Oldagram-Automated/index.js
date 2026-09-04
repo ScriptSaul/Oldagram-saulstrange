@@ -42,14 +42,33 @@ for (let i = 0; i < posts.length; i++) {
                     <p>${post.location}</p>
                 </div>
             </div>
-            <img src="${post.post}" alt="Post image" class="post-image">
+            <img src="${post.post}" alt="Post image" class="post-image" data-index="${i}">
+            <div class="caption-icons">
+                <button><img src="images/icon-heart.png" alt="Like"></button>
+                <button><img src="images/icon-comment.png" alt="Comment"></button>
+                <button><img src="images/icon-dm.png" alt="Share"></button>
+            </div>
             <div class="post-footer">
-                <p><strong>${post.likes} likes</strong></p>
+                <p><strong class="likes-count">${post.likes} likes</strong></p>
                 <p><strong>${post.username}</strong> ${post.comment}</p>
             </div>
         </div>
     
     `;
+
+}
+
+const postImages = document.querySelectorAll(".post-image");
+
+for (let i = 0; i < postImages.length; i++) {
+    const image = postImages[i];
+    image.addEventListener("dblclick", function(){
+        const index = image.getAttribute("data-index");
+        posts[index].likes++
+        const likesElement = image.parentElement.querySelector(".likes-count");
+        likesElement.textContent = `${posts[index].likes} likes`;
+        console.log(posts[index].likes)
+    })
 
 }
 
@@ -93,6 +112,17 @@ for (let i = 0; i < posts.length; i++) {
 
 
 
+
+
+
+
+// postImages.forEach((image) => {
+//     image.addEventListener("dblclick", () => {
+//         const index = image.getAttribute("data-index");
+//         posts[index].likes++;
+//         const likesElement = image.parentElement.querySelector(".post-footer p strong");
+//         likesElement.textContent = `${posts[index].likes} likes`;
+//     }
 
 
 
